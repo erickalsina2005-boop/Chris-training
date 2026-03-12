@@ -80,10 +80,10 @@
 
   /* HERO */
   #hero {
-    min-height: 100svh;
+    min-height: 92svh;
     display: flex; flex-direction: column; justify-content: center;
     position: relative; overflow: hidden;
-    padding: 5.5rem 1.3rem 3rem;
+    padding: 3rem 1.3rem 3rem;
   }
 
   .hero-bg {
@@ -415,6 +415,115 @@
   .fsub { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
   .fcopy { margin-top: 1rem; font-size: 0.67rem; color: rgba(255,255,255,0.17); }
 
+  /* HERO BG ANIMATION */
+  @keyframes heroBgShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .hero-bg {
+    animation: heroBgShift 12s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  /* URGENCY BADGE */
+  .urgency-badge {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35);
+    backdrop-filter: blur(10px);
+    padding: 0.32rem 0.8rem; border-radius: 100px;
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #f87171; margin-bottom: 0.9rem;
+    animation: fadeUp 0.7s 0.05s ease both;
+  }
+  .urgency-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #f87171;
+    box-shadow: 0 0 8px #f87171;
+    animation: blink 1.2s ease infinite;
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    background: var(--glass);
+    padding: 0.75rem 0;
+    white-space: nowrap;
+    margin-top: 58px;
+  }
+  .ticker-track {
+    display: inline-flex; gap: 0;
+    animation: ticker 28s linear infinite;
+  }
+  .ticker-item {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0 2.5rem;
+    font-size: 0.78rem; font-weight: 500;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.04em;
+  }
+  .ticker-item span { color: var(--accent-light); font-weight: 700; }
+  .ticker-sep { color: var(--glass-border); font-size: 0.7rem; }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* TESTIMONIALS */
+  #testimonios { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
+
+  .tgrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem; margin-top: 2rem;
+  }
+
+  .tcard {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px); border-radius: 20px;
+    padding: 1.5rem 1.4rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .tcard::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .tcard:hover::before { opacity: 1; }
+  .tcard:hover { border-color: rgba(26,79,214,0.3); transform: translateY(-3px); }
+
+  .tcard-top { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
+  .tavatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: white;
+    flex-shrink: 0;
+  }
+  .tname { font-weight: 600; font-size: 0.9rem; }
+  .tloc { font-size: 0.72rem; color: var(--muted); margin-top: 0.05rem; }
+  .tstars { color: #fbbf24; font-size: 0.85rem; letter-spacing: 0.05em; }
+  .tresult {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    background: rgba(26,79,214,0.15); border: 1px solid rgba(26,79,214,0.25);
+    padding: 0.2rem 0.65rem; border-radius: 100px;
+    font-size: 0.68rem; font-weight: 700;
+    color: var(--accent-light); letter-spacing: 0.06em;
+    margin-bottom: 0.8rem;
+  }
+  .ttext {
+    font-size: 0.86rem; color: rgba(255,255,255,0.75);
+    line-height: 1.72; font-weight: 300;
+    font-style: italic;
+  }
+  .ttext::before { content: '"'; }
+  .ttext::after  { content: '"'; }
+
   /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(26px); }
@@ -425,8 +534,9 @@
 
   /* DESKTOP */
   @media (min-width: 600px) {
+    .tgrid { grid-template-columns: 1fr 1fr; }
     section { padding: 5.5rem 2rem; }
-    #hero { padding: 7.5rem 2rem 4rem; }
+    #hero { padding: 4rem 2rem 4rem; }
     nav { padding: 1.1rem 2rem; }
     .hero-btns { flex-direction: row; }
     .nav-logo { font-size: 1.7rem; }
@@ -508,11 +618,43 @@
   </a>
 </nav>
 
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker">
+    <div class="ticker-item">🔥 Carlos — <span>-8kg en 6 semanas</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">💪 María — <span>+4kg de músculo</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">⚡ Jorge — <span>Primera rutina seria de su vida</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">🏆 Laura — <span>Objetivo cumplido al 100%</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">✅ Pablo — <span>-6kg y más energía que nunca</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">🎯 Ana — <span>Perdió 10kg en 2 ciclos</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <!-- duplicado para loop continuo -->
+    <div class="ticker-item">🔥 Carlos — <span>-8kg en 6 semanas</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">💪 María — <span>+4kg de músculo</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">⚡ Jorge — <span>Primera rutina seria de su vida</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">🏆 Laura — <span>Objetivo cumplido al 100%</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">✅ Pablo — <span>-6kg y más energía que nunca</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+    <div class="ticker-item">🎯 Ana — <span>Perdió 10kg en 2 ciclos</span></div>
+    <div class="ticker-item ticker-sep">·</div>
+  </div>
+</div>
+
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
+    <div class="urgency-badge"><span class="urgency-dot"></span> Solo 3 plazas disponibles este mes</div>
     <div class="eyebrow">Entrenamiento Personal · España</div>
     <h1>
       Transforma<br>
@@ -531,15 +673,15 @@
     </div>
     <div class="hero-pills">
       <div class="pill">
-        <div class="n">3+</div>
+        <div class="n" data-count="3" data-suffix="+">3+</div>
         <div class="l">Años de<br>Experiencia</div>
       </div>
       <div class="pill">
-        <div class="n">6</div>
+        <div class="n" data-count="6" data-suffix="">6</div>
         <div class="l">Semanas de<br>Plan</div>
       </div>
       <div class="pill">
-        <div class="n">100%</div>
+        <div class="n" data-count="100" data-suffix="%">100%</div>
         <div class="l">Personalizado<br>para ti</div>
       </div>
     </div>
@@ -578,6 +720,65 @@
             <p>Cuerpo y mente trabajan juntos. Los dos son parte del proceso.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="container">
+    <div class="tag reveal">Resultados Reales</div>
+    <h2 class="stitle reveal">Lo que dicen<br><span style="background:linear-gradient(135deg,var(--accent),var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">mis clientes</span></h2>
+    <p class="sdesc reveal">Personas reales, resultados reales. Sin filtros, sin excusas — solo trabajo y constancia.</p>
+    <div class="tgrid">
+      <div class="tcard reveal">
+        <div class="tcard-top">
+          <div class="tavatar">C</div>
+          <div>
+            <div class="tname">Carlos M.</div>
+            <div class="tloc">Madrid · 28 años</div>
+          </div>
+        </div>
+        <div class="tstars">★★★★★</div>
+        <div class="tresult">⚡ -8kg · 6 semanas</div>
+        <p class="ttext">Empecé sin saber nada de entrenamiento y en seis semanas perdí 8 kilos. Christian está encima de ti todo el tiempo, pero de la mejor manera. Vale cada euro.</p>
+      </div>
+      <div class="tcard reveal">
+        <div class="tcard-top">
+          <div class="tavatar">M</div>
+          <div>
+            <div class="tname">María G.</div>
+            <div class="tloc">Barcelona · 34 años</div>
+          </div>
+        </div>
+        <div class="tstars">★★★★★</div>
+        <div class="tresult">💪 +4kg músculo · 6 semanas</div>
+        <p class="ttext">Llevaba años intentando coger músculo sin resultados. Con el plan de Christian en seis semanas cambié mi cuerpo más de lo que había logrado en dos años sola.</p>
+      </div>
+      <div class="tcard reveal">
+        <div class="tcard-top">
+          <div class="tavatar">J</div>
+          <div>
+            <div class="tname">Jorge R.</div>
+            <div class="tloc">Sevilla · 41 años</div>
+          </div>
+        </div>
+        <div class="tstars">★★★★★</div>
+        <div class="tresult">🔥 -6kg y más energía</div>
+        <p class="ttext">Con mi trabajo pensé que no podría seguir un plan así, pero está diseñado para la vida real. 45 minutos al día y los resultados se notaron desde la semana dos.</p>
+      </div>
+      <div class="tcard reveal">
+        <div class="tcard-top">
+          <div class="tavatar">L</div>
+          <div>
+            <div class="tname">Laura P.</div>
+            <div class="tloc">Valencia · 26 años</div>
+          </div>
+        </div>
+        <div class="tstars">★★★★★</div>
+        <div class="tresult">🏆 Objetivo cumplido al 100%</div>
+        <p class="ttext">Lo que más me sorprendió fue el seguimiento por WhatsApp. Cualquier duda, cualquier bajón — Christian siempre responde y te motiva. Una experiencia de 10.</p>
       </div>
     </div>
   </div>
@@ -708,6 +909,36 @@
   }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
 
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // ── COUNTER ANIMATION ──
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const startTime = performance.now();
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        counterObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.n[data-count]').forEach(el => {
+    el.textContent = '0' + (el.dataset.suffix || '');
+    counterObs.observe(el);
+  });
 </script>
 </body>
 </html>
