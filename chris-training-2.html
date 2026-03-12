@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Chris Training | Transforma Tu Cuerpo en 6 Semanas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;1,700;1,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050505;
+    --bg2: #0a0a0a;
+    --accent: #1a4fd6;
+    --accent2: #2563eb;
+    --accent-light: #5b8ef0;
+    --white: #ffffff;
+    --muted: rgba(255,255,255,0.55);
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --glow: 0 0 40px rgba(26,79,214,0.45);
+    --glow-sm: 0 0 20px rgba(26,79,214,0.35);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  /* Elimina flash azul al tocar en Android */
+  * { -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    /* Soporte para notch / safe area en iPhone */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03; pointer-events: none; z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0.9rem 1.2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(5,5,5,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 0.08em;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .nav-wa {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white; text-decoration: none;
+    padding: 0.5rem 1.1rem; border-radius: 100px;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.02em;
+    box-shadow: 0 0 18px rgba(26,79,214,0.4);
+    transition: box-shadow 0.3s, transform 0.2s;
+  }
+  .nav-wa:hover { box-shadow: 0 0 30px rgba(26,79,214,0.65); transform: scale(1.03); }
+  .nav-wa svg { width: 14px; height: 14px; fill: white; opacity: 0.9; }
+
+  /* SVG WA PATH - reusable */
+  .wa-svg { display: none; }
+
+  /* HERO */
+  #hero {
+    min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 5.5rem 1.3rem 3rem;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 100% 60% at 60% 35%, rgba(26,79,214,0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 0% 95%, rgba(26,79,214,0.08) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 45px 45px;
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 35%, black 10%, transparent 100%);
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    padding: 0.38rem 0.9rem; border-radius: 100px;
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent-light); margin-bottom: 1.3rem;
+    animation: fadeUp 0.7s ease both;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent-light);
+    box-shadow: 0 0 7px var(--accent-light);
+    animation: blink 2s ease infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-style: italic; text-transform: uppercase;
+    font-size: clamp(3.8rem, 17vw, 6.5rem);
+    line-height: 0.88; margin-bottom: 1.1rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  h1 .blue {
+    display: block;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem; color: var(--muted);
+    line-height: 1.72; font-weight: 300;
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-btns {
+    display: flex; flex-direction: column; gap: 0.8rem;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn-wa {
+    display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: white; text-decoration: none;
+    padding: 1rem 1.8rem; border-radius: 16px;
+    font-weight: 600; font-size: 0.97rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 8px 32px rgba(26,79,214,0.45), inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: box-shadow 0.3s, transform 0.2s, background 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .btn-wa::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .btn-wa:hover {
+    box-shadow: 0 12px 40px rgba(26,79,214,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+  }
+  .btn-wa svg { width: 19px; height: 19px; fill: white; flex-shrink: 0; opacity: 0.9; }
+
+  .btn-outline {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px); color: var(--white); text-decoration: none;
+    padding: 1rem 1.6rem; border-radius: 100px;
+    font-weight: 500; font-size: 0.95rem;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.2); }
+
+  .hero-pills {
+    display: flex; gap: 0.7rem; margin-top: 2rem;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+
+  .pill {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px); border-radius: 14px;
+    padding: 0.85rem 0.9rem; flex: 1; text-align: center;
+  }
+  .pill .n {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .pill .l {
+    font-size: 0.6rem; color: var(--muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-top: 0.2rem; line-height: 1.3;
+  }
+
+  /* SECTIONS */
+  section { padding: 4rem 1.3rem; }
+  .container { max-width: 640px; margin: 0 auto; }
+
+  .tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent-light); margin-bottom: 0.6rem;
+  }
+
+  .stitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-style: italic; text-transform: uppercase;
+    font-size: clamp(2.5rem, 11vw, 4rem); line-height: 0.93;
+    margin-bottom: 0.9rem;
+  }
+
+  .sdesc {
+    color: var(--muted); font-size: 0.92rem;
+    line-height: 1.75; font-weight: 300;
+  }
+
+  /* ABOUT */
+  #about { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
+
+  .coach-card {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px); border-radius: 22px;
+    padding: 1.8rem; margin-top: 2rem;
+    position: relative; overflow: hidden;
+  }
+  .coach-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light), transparent);
+  }
+
+  .cname {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1; margin-bottom: 0.15rem;
+  }
+  .crole {
+    font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem;
+  }
+  .cbio {
+    font-size: 0.9rem; color: rgba(255,255,255,0.72);
+    line-height: 1.75; font-weight: 300; margin-bottom: 0.3rem;
+  }
+
+  .vals { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.5rem; }
+
+  .val {
+    display: flex; align-items: center; gap: 0.85rem;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
+    border-radius: 13px; padding: 0.95rem 1.1rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .val:hover { border-color: rgba(26,79,214,0.35); transform: translateX(4px); }
+  .val-icon { font-size: 1.2rem; min-width: 1.7rem; text-align: center; }
+  .val-text strong { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.1rem; }
+  .val-text p { font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.45; }
+
+  /* PLAN */
+  #plan { background: var(--bg); }
+
+  .weeks { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
+
+  .wk {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px); border-radius: 16px;
+    padding: 1.2rem 1.3rem;
+    display: flex; align-items: center; gap: 0.9rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .wk:hover { border-color: rgba(26,79,214,0.35); transform: translateX(5px); }
+
+  .wnum {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    min-width: 2.2rem; line-height: 1;
+  }
+  .winfo { flex: 1; }
+  .winfo strong { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 0.18rem; }
+  .winfo p { font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.4; }
+  .wico { font-size: 1.3rem; }
+
+  /* FAQ */
+  #faq { background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); }
+
+  .faqs { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.8rem; }
+
+  .fi {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px); border-radius: 14px; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .fi:hover { border-color: rgba(26,79,214,0.25); }
+
+  .fq {
+    width: 100%; background: none; border: none; color: var(--white);
+    text-align: left; padding: 1.1rem 1.3rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 0.8rem;
+  }
+  .fq span { color: var(--accent-light); font-size: 1.25rem; transition: transform 0.3s; flex-shrink: 0; }
+  .fi.open .fq span { transform: rotate(45deg); }
+
+  .fa {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    font-size: 0.84rem; color: var(--muted);
+    line-height: 1.7; font-weight: 300; padding: 0 1.3rem;
+  }
+  .fi.open .fa { max-height: 180px; padding: 0 1.3rem 1.1rem; }
+
+  /* CTA */
+  #cta { background: var(--bg); padding: 3.5rem 1.3rem 5rem; text-align: center; }
+
+  .cta-box {
+    background: var(--glass); border: 1px solid rgba(26,79,214,0.2);
+    backdrop-filter: blur(20px); border-radius: 26px;
+    padding: 2.2rem 1.6rem;
+    position: relative; overflow: hidden;
+    max-width: 480px; margin: 0 auto;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent-light), transparent);
+  }
+
+  .cta-box h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-style: italic; text-transform: uppercase;
+    font-size: clamp(2.3rem, 10vw, 3rem); line-height: 0.93;
+    margin-bottom: 0.9rem;
+  }
+  .cta-box h2 span {
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .cta-box p {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.7; font-weight: 300; margin-bottom: 1.8rem;
+  }
+
+  .wa-cta {
+    display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: white; text-decoration: none;
+    padding: 1.15rem 2rem; border-radius: 18px;
+    font-weight: 600; font-size: 1rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 8px 36px rgba(26,79,214,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: box-shadow 0.3s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .wa-cta::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .wa-cta:hover {
+    box-shadow: 0 14px 48px rgba(26,79,214,0.65), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: translateY(-3px);
+  }
+  .wa-cta svg { width: 21px; height: 21px; fill: white; flex-shrink: 0; opacity: 0.9; }
+
+  .wa-num { margin-top: 0.9rem; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.06em; }
+
+  /* FLOATING WA */
+  .wa-float {
+    position: fixed; bottom: 1.4rem; right: 1.1rem; z-index: 200;
+    width: 54px; height: 54px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 28px rgba(26,79,214,0.55), inset 0 1px 0 rgba(255,255,255,0.15);
+    text-decoration: none;
+    transition: transform 0.25s, box-shadow 0.25s, border-radius 0.25s;
+    animation: popIn 0.5s 1.2s ease both;
+  }
+  .wa-float:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 10px 38px rgba(26,79,214,0.7);
+    border-radius: 18px;
+  }
+  .wa-float svg { width: 25px; height: 25px; fill: white; }
+  @keyframes popIn { from{opacity:0;transform:scale(0.4) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--glass-border);
+    padding: 1.8rem 1.3rem; text-align: center;
+  }
+  .flogo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem;
+    letter-spacing: 0.08em;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 0.3rem;
+  }
+  .fsub { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
+  .fcopy { margin-top: 1rem; font-size: 0.67rem; color: rgba(255,255,255,0.17); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* DESKTOP */
+  @media (min-width: 600px) {
+    section { padding: 5.5rem 2rem; }
+    #hero { padding: 7.5rem 2rem 4rem; }
+    nav { padding: 1.1rem 2rem; }
+    .hero-btns { flex-direction: row; }
+    .nav-logo { font-size: 1.7rem; }
+    .cta-box { padding: 2.8rem 2.2rem; }
+  }
+
+  /* Estados táctiles */
+  .btn-wa:active, .wa-cta:active { transform: scale(0.97) translateY(0); box-shadow: 0 4px 20px rgba(26,79,214,0.35); }
+  .nav-wa:active { transform: scale(0.95); }
+  .wa-float:active { transform: scale(0.92); border-radius: 14px; }
+
+  .wa-float-label {
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.03em;
+    max-width: 0; overflow: hidden; white-space: nowrap;
+    opacity: 0;
+    transition: max-width 0.35s ease, opacity 0.3s ease, margin 0.3s ease;
+  }
+  .wa-float:hover .wa-float-label,
+  .wa-float:focus .wa-float-label {
+    max-width: 80px; opacity: 1; margin-left: 0.1rem;
+  }
+  .wa-float:hover {
+    width: auto; padding: 0 1.3rem; border-radius: 14px;
+  }
+
+  /* Safe area iPhone home bar */
+  .wa-float { bottom: calc(1.4rem + env(safe-area-inset-bottom)); }
+</style>
+</head>
+<body>
+
+<!-- WA SVG template (inline reuse) -->
+<svg style="display:none">
+  <symbol id="wa" viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </symbol>
+</svg>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CHRIS TRAINING</div>
+  <a href="#" class="nav-wa wa-link">
+    <svg><use href="#wa"/></svg> Contactar
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Entrenamiento Personal · España</div>
+    <h1>
+      Transforma<br>
+      <span class="blue">Tu Cuerpo</span>
+      En 6 Semanas
+    </h1>
+    <p class="hero-sub">
+      Un plan real, diseñado para ti. Sin rutinas genéricas, sin excusas. 
+      Christian te acompaña desde el primer día hasta el resultado final.
+    </p>
+    <div class="hero-btns">
+      <a href="#" class="btn-wa wa-link">
+        <svg><use href="#wa"/></svg> Hablar con Christian
+      </a>
+
+    </div>
+    <div class="hero-pills">
+      <div class="pill">
+        <div class="n">3+</div>
+        <div class="l">Años de<br>Experiencia</div>
+      </div>
+      <div class="pill">
+        <div class="n">6</div>
+        <div class="l">Semanas de<br>Plan</div>
+      </div>
+      <div class="pill">
+        <div class="n">100%</div>
+        <div class="l">Personalizado<br>para ti</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="tag reveal">El Coach</div>
+    <h2 class="stitle reveal">Quién es<br>Christian</h2>
+    <p class="sdesc reveal">No soy un coach más. Soy tu compañero de proceso — alguien que ya recorrió el camino y sabe exactamente cómo llevarte a donde quieres llegar.</p>
+    <div class="coach-card reveal">
+      <div class="cname">CHRISTIAN</div>
+      <div class="crole">Personal Coach · Chris Training</div>
+      <p class="cbio">Con más de 3 años entrenando personas de todos los niveles, he aprendido que cada cuerpo es diferente y merece un plan único. Mi misión es darte las herramientas, el conocimiento y el acompañamiento que necesitas para transformarte de verdad — no solo físicamente, sino también mentalmente.</p>
+      <div class="vals">
+        <div class="val">
+          <div class="val-icon">🎯</div>
+          <div class="val-text">
+            <strong>Objetivos Reales</strong>
+            <p>Metas claras, medibles y alcanzables desde el día uno.</p>
+          </div>
+        </div>
+        <div class="val">
+          <div class="val-icon">📲</div>
+          <div class="val-text">
+            <strong>Acceso Directo por WhatsApp</strong>
+            <p>Dudas, ajustes o motivación — estoy disponible para ti.</p>
+          </div>
+        </div>
+        <div class="val">
+          <div class="val-icon">🧠</div>
+          <div class="val-text">
+            <strong>Mentalidad + Físico</strong>
+            <p>Cuerpo y mente trabajan juntos. Los dos son parte del proceso.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN 6 SEMANAS -->
+<section id="plan">
+  <div class="container">
+    <div class="tag reveal">El Método</div>
+    <h2 class="stitle reveal">Plan de <span style="background:linear-gradient(135deg,var(--accent),var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">6 Semanas</span></h2>
+    <p class="sdesc reveal">Cada semana tiene un propósito. No hay relleno, no hay tiempo perdido — solo progreso estructurado y constante.</p>
+    <div class="weeks">
+      <div class="wk reveal">
+        <div class="wnum">01</div>
+        <div class="winfo"><strong>Diagnóstico & Activación</strong><p>Evaluamos tu punto de partida y activamos el sistema. Base de todo lo que viene.</p></div>
+        <div class="wico">🧭</div>
+      </div>
+      <div class="wk reveal">
+        <div class="wnum">02</div>
+        <div class="winfo"><strong>Construcción de Base</strong><p>Patrones de movimiento correctos y carga inicial adaptada a tu nivel.</p></div>
+        <div class="wico">🏗️</div>
+      </div>
+      <div class="wk reveal">
+        <div class="wnum">03</div>
+        <div class="winfo"><strong>Intensidad Progresiva</strong><p>Subimos la exigencia. Tu cuerpo ya está listo para el siguiente nivel.</p></div>
+        <div class="wico">⚡</div>
+      </div>
+      <div class="wk reveal">
+        <div class="wnum">04</div>
+        <div class="winfo"><strong>Máximo Rendimiento</strong><p>La semana más dura. Aquí es donde ocurre la transformación real.</p></div>
+        <div class="wico">🔥</div>
+      </div>
+      <div class="wk reveal">
+        <div class="wnum">05</div>
+        <div class="winfo"><strong>Refinamiento</strong><p>Ajustamos, pulimos y consolidamos los cambios obtenidos.</p></div>
+        <div class="wico">🎯</div>
+      </div>
+      <div class="wk reveal">
+        <div class="wnum">06</div>
+        <div class="winfo"><strong>Resultados & Cierre</strong><p>Medimos, celebramos y definimos tus próximos objetivos.</p></div>
+        <div class="wico">🏆</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="tag reveal">FAQ</div>
+    <h2 class="stitle reveal">Preguntas<br>Frecuentes</h2>
+    <div class="faqs">
+      <div class="fi reveal">
+        <button class="fq" onclick="toggleFaq(this)">¿Necesito experiencia previa? <span>+</span></button>
+        <div class="fa">Para nada. Trabajo con todos los niveles, desde cero hasta avanzado. El plan se adapta a donde estás tú hoy.</div>
+      </div>
+      <div class="fi reveal">
+        <button class="fq" onclick="toggleFaq(this)">¿Es presencial u online? <span>+</span></button>
+        <div class="fa">Ofrezco ambas modalidades. El seguimiento online funciona igual de bien gracias al contacto directo por WhatsApp y la revisión semanal de tu progreso.</div>
+      </div>
+      <div class="fi reveal">
+        <button class="fq" onclick="toggleFaq(this)">¿Incluye guía de nutrición? <span>+</span></button>
+        <div class="fa">Sí. El entrenamiento sin nutrición es solo la mitad. Te doy una guía nutricional personalizada según tus objetivos y estilo de vida.</div>
+      </div>
+      <div class="fi reveal">
+        <button class="fq" onclick="toggleFaq(this)">¿Cuánto tiempo al día necesito? <span>+</span></button>
+        <div class="fa">Con 45–60 minutos al día es suficiente. El plan está diseñado para encajar en tu rutina real, no al revés.</div>
+      </div>
+      <div class="fi reveal">
+        <button class="fq" onclick="toggleFaq(this)">¿Cómo empiezo? <span>+</span></button>
+        <div class="fa">Escríbeme por WhatsApp, cuéntame tu objetivo y agendamos una consulta inicial gratuita. Sin compromiso, sin rodeos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-box reveal">
+    <h2>¿Listo Para <span>Empezar?</span></h2>
+    <p>Un mensaje a Christian es todo lo que necesitas. Cuéntale tu objetivo y en menos de 24h tienes respuesta.</p>
+    <a href="#" class="wa-cta wa-link">
+      <svg><use href="#wa"/></svg> Escribir a Christian
+    </a>
+    <p class="wa-num">+34 671 62 84 12</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">CHRIS TRAINING</div>
+  <p class="fsub">Transforma Tu Cuerpo · Transforma Tu Vida</p>
+  <p class="fcopy">© 2025 Chris Training. Todos los derechos reservados.</p>
+</footer>
+
+<!-- FLOATING WA BUTTON -->
+<a href="#" class="wa-float wa-link" aria-label="Contactar por WhatsApp">
+  <svg><use href="#wa"/></svg>
+  <span class="wa-float-label">Contactar</span>
+</a>
+
+<script>
+  // ── WHATSAPP: abre app directamente en móvil, fallback web en desktop ──
+  const WA_NUMBER = '34671628412';
+  const WA_MSG = encodeURIComponent('Hola Christian! Me interesa el plan de 6 semanas. ¿Podemos hablar?');
+
+  function openWhatsApp(e) {
+    e.preventDefault();
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      // Intenta abrir la app nativa
+      const appUrl = `whatsapp://send?phone=${WA_NUMBER}&text=${WA_MSG}`;
+      const webUrl = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`;
+      // Redirige a la app; si no está instalada el timeout abre web como fallback
+      const start = Date.now();
+      window.location.href = appUrl;
+      setTimeout(() => {
+        if (Date.now() - start < 1800) window.open(webUrl, '_blank');
+      }, 1200);
+    } else {
+      window.open(`https://wa.me/${WA_NUMBER}?text=${WA_MSG}`, '_blank');
+    }
+  }
+
+  // Asignar a todos los botones WA
+  document.querySelectorAll('.wa-link').forEach(el => {
+    el.addEventListener('click', openWhatsApp);
+  });
+
+  // ── FAQ ──
+  function toggleFaq(btn) {
+    const item = btn.closest('.fi');
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.fi.open').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  }
+
+  // ── SCROLL REVEAL ──
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60);
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
